@@ -1,0 +1,77 @@
+﻿@using NOAAMovieStoreAssignment.Models.ViewModels;
+@model IEnumerable<NOAAMovieStoreAssignment.Models.Movie>
+
+@{
+    ViewData["Title"] = "AdminMovieList";
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+
+<h1>AdminMovieList</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Director)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+           
+          
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+               <img src="@item.PictureUrl" style="width:40px; height:40px">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Director)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            
+            <td>
+                <div class="btn-group">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info" style="margin:5px">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary" style="margin:5px">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" style="margin:5px">Delete</a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<partial name="_pagiginationForAdminPage" model="@pager"> </partial>

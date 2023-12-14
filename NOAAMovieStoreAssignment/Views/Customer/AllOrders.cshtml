@@ -1,0 +1,38 @@
+﻿@model IEnumerable<NOAAMovieStoreAssignment.ViewModels.CustomerOrder>
+
+@{
+    ViewData["Title"] = "All Orders";
+}
+
+<h1>All Orders for @ViewData["Name"]</h1>
+
+<p>
+    Total count of orders: @Model.Count()
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nr
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int OrderNr = 1;
+            foreach (var item in Model) {
+                ViewData["OrderNr"] = OrderNr++;
+                <partial name="_OrderPartial" model="item" />
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,70 @@
+﻿.nataliesgenre ul {
+    list-style-type: none;
+    text-wrap: nowrap;
+    position: sticky;
+    top: 8rem;
+    height: 100vh;
+}
+
+img {
+    width: 200px;
+    height: 0%;
+}
+
+img, svg {
+    vertical-align: middle;
+    border-radius: 12px;
+}
+
+.natalieschild ul::-webkit-scrollbar-thumb {
+    background-color: #fff;
+}
+
+.natalieschild ul:hover::-webkit-scrollbar-thumb {
+    background-color: #d6d6d6;
+}
+
+.natalieschild {
+    width: 350px; /* Justera bredden på sidomenyn här */
+    padding: 50px; /* Anpassa inre utrymme efter behov */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px; /* Avstånd från toppen */
+    background-color: #fff;
+    margin-top: 9px;
+}
+
+    .natalieschild ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        max-height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+        /* Listelement */
+        .natalieschild ul li {
+            border-top: 1px solid lightgrey;
+            padding: 15px 0;
+            text-align: center;
+            transition: background-color 0.3s ease; /* Smidig övergång vid hovring */
+        }
+
+            /* Hover-effekt */
+            .natalieschild ul li:hover {
+                background-color: aliceblue;
+                cursor: pointer; /* Ändra markörens form vid hovring */
+            }
+
+            /* Länkar */
+            .natalieschild ul li a {
+                text-decoration: none;
+                color: black;
+                font-size: 18px;
+            }
+
+/* Centrerad rubrik */
+h2 {
+    text-align: center;
+}

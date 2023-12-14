@@ -1,0 +1,207 @@
+@using NOAAMovieStoreAssignment.Helper;
+
+@{
+    var navVideoDisabled = ViewData["DisableNavVideo"] is true;
+    var cartMessage = TempData["CartMessage"] as string;
+    var query = ViewData["Query"] as string;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NOAAMovieStoreAssignment</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/NOAAMovieStoreAssignment.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://kit.fontawesome.com/4916152ff0.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="hero2">
+
+
+        <nav class="navbar navbar-expand-md navbar-light fixed-top d-flex">
+
+            <video autoplay loop muted plays-inline class="navbar-video @(navVideoDisabled ? "hidden" : "")">
+                <source src="/image/pexels_videos_1851190%20(2160p).mp4" type="video/mp4" />
+            </video>
+            <a asp-action="Index" asp-controller="Home">
+            <img src="~/image/icons8-movie-100.png" class="logo" />
+            </a>
+            <a asp-action="Index" asp-controller="Home" style="text-decoration:none"> 
+            <h2> NOAA MOVIESTORE </h2>
+            </a>
+            
+            <form class="maralsearchbar d-flex" asp-controller="Home" asp-action="SortByYear" method="get">
+                <input class="form-control me-sm-2" type="search" placeholder="Search" name="query" value="@query">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link text-white  fs-4" asp-controller="Home" asp-action="Index">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white fs-4" asp-controller="Movies" asp-action="Index">ALL MOVIES</a>
+                </li>
+
+                @* MORE MENU *@
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white  fs-4" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">MORE</a>
+                    <div class="dropdown-menu ">
+                        <a class="dropdown-item " asp-controller="Home" asp-action="SortByYear">SEARCH MOVIES</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" asp-controller="Home" asp-action="SortByGenre">GENRES</a>
+                        
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white  fs-4" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">INFO</a>
+                    <div class="dropdown-menu ">
+                        <a class="dropdown-item " asp-controller="Home" asp-action="ContactUS">Contact Us</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" asp-controller="Home" asp-action="TermsAndService">Terms of Service</a>
+                    </div>
+                </li>
+
+                @* ADMIN MENU *@
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white  fs-4" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span><i class="fa-solid fa-gear"></i>&nbsp;ADMIN</span>
+                        </a>
+                        <div class="dropdown-menu ">
+                           <a class="dropdown-item " asp-controller="Movies" asp-action="AdminMovieList">
+                            <span><i class="fa-solid fa-film"></i>&nbsp;MOVIES</span>
+                           </a>
+                        <a class="dropdown-item " asp-controller="Customer" asp-action="Details">
+                            <span><i class="fa-solid fa-film"></i>&nbsp;CUSTOMERS LIST</span>
+                        </a>
+                        </div>
+
+                </li>
+
+                @* SHOPPING CART  *@
+                <li class="nav-item" style="margin-right:40px;">
+                    <a class="nav-link text-white " asp-area="" asp-controller="Cart" asp-action="ShoppingCart">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor  " class="bi bi-cart-plus " viewBox="0 0 16 16 ">
+                            <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z" />
+                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                        </svg>
+                         @(Context.Session.Get<List<int>>("movieIdList")?.Count)
+                    </a>
+
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+
+    <div class="container-fluid main-content">
+        @if (!string.IsNullOrEmpty(cartMessage))
+        {
+            <div class="alert alert-primary">
+                @cartMessage
+            </div>
+        }
+        
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+        <!-- Section: Social media -->
+        <section class="d-flex justify-content-center justify-content-l-between p-4 border-bottom">
+        </section>
+        <!-- Section: Social media -->
+        <!-- Section: Links  -->
+        <section class="">
+            <div class="container text-center text-md-start mt-4">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <!-- Content -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem me-3"></i>NOAA MOVIE STORE
+                        </h6>
+                        <p>
+                            Here you can use rows and columns to organize your footer content. Lorem ipsum
+                            dolor sit amet, consectetur adipisicing elit.
+                        </p>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Customer Service
+                        </h6>
+
+                        <p>
+                            <a asp-action="TermsAndService" asp-controller="Home" class="text-reset">Shipping Policy</a>
+                        </p>
+                        <p>
+                            <a asp-action="TermsAndService" asp-controller="Home" class="text-reset">Compensation First</a>
+                        </p>
+                        <p>
+                            <a asp-action="TermsAndService" asp-controller="Home" class="text-reset">Return Policy</a>
+                        </p>
+                        <p>
+                            <a asp-action="ContactUs" asp-controller="Home" class="text-reset">Contact Us</a>
+                        </p>
+                    </div>
+                   
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            My Account
+                        </h6>
+                        <p>
+                            <a href="https://www.google.se/maps/dir//lexicon+link%C3%B6ping+adress/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x46596f7b979505a5:0x5035b84980467e8f?sa=X&ved=2ahUKEwi2yp6roYyDAxWCJBAIHZMWCocQ9Rd6BAg-EAA" class="text-reset">Map</a>
+                        </p>
+                        <p>
+                            <a <a asp-action="TermsAndService" asp-controller="Home" class="text-reset">Privacy Policy</a>
+                        </p>
+                      @*   <p>
+                            <a <a asp-action="TermAndfService" asp-controller="Home" class="text-reset">Your Account</a>
+                        </p> *@
+                        <p>
+                            <a <a asp-action="TermsAndService" asp-controller="Home" class="text-reset">FAQ</a>
+                        </p>
+                    </div>
+                   
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                        <p><i class="fas fa-home me-3"></i> Västra Svedengatan 10, 58273,Sverige Linköping</p>
+                        <p>
+                            <i class="fas fa-envelope me-3"></i>
+                            NoaaMovieStore@gmail.com
+                        </p>
+                        <p><i class="fas fa-phone me-3"></i> + 46 726  129 487</p>
+                        <p><i class="fas fa-print me-3"></i> + 013 24 567 89</p>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </section>
+        <!-- Section: Links  -->
+        <!-- Copyright -->
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2021 Copyright:
+            <a class="text-reset fw-bold" href="~/css/site.css">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿@using NOAAMovieStoreAssignment.Models.ViewModels;
+@model IEnumerable<Movie>
+
+@{
+    ViewData["Title"] = "Index";
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+
+
+<div class="row">
+    @foreach (var movie in Model)
+    {
+        <div class="col-md-6 col-lg-4">
+            <partial name="_MoviePartial" model="movie" />
+        </div>
+    }
+</div>
+
+          <partial name="_pagginationPartialView" model="@pager"></partial>
+

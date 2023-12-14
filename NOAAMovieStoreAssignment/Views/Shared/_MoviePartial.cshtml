@@ -1,0 +1,33 @@
+﻿@model Movie
+
+        <div class="card mb-3" style=" width: 470px">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <a href="@Url.Action("oneMovie",new {id=Model.Id})"><img src="@Model.PictureUrl" class="img-fluid rounded-start" alt="@Model.Title"></a>
+
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(model => model.Title)</h5>
+                        <p class="card-text">@Html.DisplayFor(model => model.Genre)</p>
+                        <p class="card-text">@Html.DisplayFor(model => model.Director)</p>
+                        <p class="card-text"> @Html.DisplayFor(model => model.ReleaseYear)</p>
+                        <p class="card-text">@Html.DisplayFor(model => model.Price).</p>
+
+
+                        <a id="btn_add" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Id" asp-route-returnurl="/Movies/Index" class="btn btn-success text-white">
+                            <i class="bi bi-cart-plus"></i>
+                            Add to Cart (Price @Model.Price.ToString("c"))
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+    
+    
+
+    

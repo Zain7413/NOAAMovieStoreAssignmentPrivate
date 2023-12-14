@@ -1,0 +1,81 @@
+﻿@model IEnumerable<NOAAMovieStoreAssignment.Models.Movie>
+
+@{
+    ViewData["Title"] = "SortByYear";
+
+    var query = ViewData["Query"] as string;
+}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
+
+<div class="container mt-4">
+    <h3>SEARCH MOVIES</h3>
+
+    <form class="d-flex" asp-controller="Home" asp-action="SortByYear" method="get">
+        <div class="input-group mb-3">
+            <input class="form-control" type="search" placeholder="Search" name="query" value="@query">
+            <button class="btn btn-secondary" type="submit">Search</button>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <a href="#">Title</a>
+                    </th>
+                    <th>
+                        <a href="#">Genre</a>
+                    </th>
+                    <th>
+                        <a href="#">Director</a>
+                    </th>
+                    <th>
+                        <a asp-action="SortByYear" asp-route-sortOrder="@ViewData["YearSortParam"]" asp-route-query="@query" style="text-decoration:none">Year</a>
+                    </th>
+                    <th>
+                        <a asp-action="SortByYear" asp-route-sortOrder="@ViewData["PriceSortParam"]" asp-route-query="@query" style="text-decoration:none">Price</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="card col-md-7" style="width:200px">
+                                <div class="card-header">
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </div>
+                                <div class="img-fluid img-thumbnailcard-img-top img-fluid">
+                                    <a asp-action="oneMovie" asp-controller="Movies" asp-route-id="@item.Id" > <img src="@item.PictureUrl" alt="Bildbeskrivning" style="width:100%; height:100%;"></a>
+                                    <div class="card-title" style="width: 100%">
+                                        <a id="btn_add" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.Id" asp-route-returnurl="/Home/SortByYear" class="button btn btn-success text-white " style="height:55px ;width:100%">
+                                            <i class="bi bi-cart-plus"></i>
+                                            Add to Cart (Price @item.Price.ToString("c"))
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Director)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReleaseYear)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

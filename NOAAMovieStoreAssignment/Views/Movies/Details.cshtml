@@ -1,0 +1,54 @@
+﻿@model NOAAMovieStoreAssignment.Models.Movie
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <h4>Details: @Model.Title</h4>
+
+    <hr />
+    <dl class="row">
+        <dl class="col-9">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Genre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Director)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Director)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ReleaseYear)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ReleaseYear)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+        </dl>
+        <dl class="col-1">
+            <img src="@Model.PictureUrl" style="width:200px; height:250px; margin:10px" />
+        </dl>
+       
+    </dl>
+</div>
+<div>
+    
+    <a asp-action="AdminMovieList" class="btn btn-info" style="margin:10px">Back</a>
+</div>

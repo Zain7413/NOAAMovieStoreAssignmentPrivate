@@ -1,0 +1,61 @@
+﻿@model NOAAMovieStoreAssignment.Models.Movie
+
+@{
+    ViewData["Title"] = "oneMovie";
+}
+
+<h1>@Model.Title</h1>
+
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dl class="col-9"> <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Director)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Director)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReleaseYear)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReleaseYear)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd></dl>
+        <dl class="col-3">
+            <dd class="col-sm-10">
+                @{
+                    var imageLink = Model.PictureUrl;
+                }
+                <img src="@imageLink" alt="PictureUrl" width="200" height="250" />
+            </dd>
+        </dl>
+        
+       
+       
+       
+        
+       
+         <a id="btn_add" asp-action="AddToCart" asp-controller="cart" asp-route-id="@Model.Id" asp-route-returnurl="/Movies/oneMovie/@Model.Id" class="btn btn-success text-white">
+                    <i class="bi bi-cart-plus"></i>
+                 Add to Cart (Price @Model.Price.ToString("c"))
+                </a>
+    </dl>
+   
+</div>
+<div>
+   
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</div>

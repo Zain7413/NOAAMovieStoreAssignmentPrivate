@@ -1,0 +1,19 @@
+﻿@model Movie
+@using NOAAMovieStoreAssignment.Helper;
+
+
+<div class="maralschild col-lg-2 m-lg-4">
+    <a asp-action="OneMovie" asp-controller="Movies" asp-route-id="@Model.Id" class="text-decoration-none">
+        <img src="@Model.PictureUrl" alt="Bildbeskrivning" width="250" height="250">
+        <div class="desc">
+            <h2 style="color:black">@Html.DisplayFor(modelItem => modelItem.Title)</h2>
+            <a id="btn_add" asp-action="AddToCart" asp-controller="cart" asp-route-id="@Model.Id" asp-route-returnurl="/Home/Index" class="btn btn-success text-white">
+                    <i class="bi bi-cart-plus"></i>
+                 Add (@Model.Price.ToString("c"))
+              @*  @(Context.Session.Get<List<int>>("movieIdList")?.Count)*@
+            </a>
+
+        </div>
+    </a>
+</div>
+

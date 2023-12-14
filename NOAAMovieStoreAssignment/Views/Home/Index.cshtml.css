@@ -1,0 +1,84 @@
+﻿img, svg {
+    border-radius: 12PX;
+}
+
+.carousel-item {
+    position: relative;
+    min-height: 65vh;
+}
+
+.carousel-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.side {
+    position: sticky;
+    top: 8rem;
+    height: 100vh;
+}
+
+.maralsbox {
+    width: 75%;
+}
+
+@media screen and (max-width: 991px) {
+    .maralsbox {
+        width: 100%;
+    }
+
+    .side {
+        display: none;
+    }
+}
+
+.genres {
+    position: relative;
+    z-index: 5;
+}
+
+.farg {
+    /*background-color: rgb(210 214 243 / 70%);*/
+    background: rgb(210,214,243);
+    background: linear-gradient(140deg, rgba(210,214,243,1) 0%, rgba(183,187,214,1) 100%);
+    padding: 20px;
+    position: relative;
+    /*z-index: -1;*/
+    /*min-height: 300px;*/
+    min-height: 430px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+    .farg p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        color: rgba(255, 255, 255, 0.7); 
+        font-size: 16rem; 
+        font-weight: bold;
+        /*z-index: -1;*/
+        opacity: 0.5;
+        width: 100%;
+        text-align: center;
+        pointer-events: none;
+    }
+div.container.vip {
+    text-align: center;
+    margin-top: 20px;
+}
+h4 {
+    font-family: Montserrat;
+    letter-spacing: 2px;
+    transition: 700ms ease;
+    font-variation-settings: "wght" 311;
+    margin-bottom: 0.9rem;
+    text-align: center;
+}

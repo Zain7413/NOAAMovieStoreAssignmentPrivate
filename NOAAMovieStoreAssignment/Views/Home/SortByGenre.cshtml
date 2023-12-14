@@ -1,0 +1,74 @@
+﻿@model IEnumerable<NOAAMovieStoreAssignment.Models.Movie>
+
+@{
+    ViewData["Title"] = "SortByGenre";
+    var genres = Model.SelectMany(m => m.Genre.Split(",")).Select(x => x.Trim()).Distinct().OrderBy(x => x).ToList();
+   
+}
+
+  <div class="nataliesgenre d-flex gap-4">
+    <div class="natalieschild" style=" width: auto;">
+        <h2 style="color:black">GENRE</h2>
+        <ul>
+            @foreach (var genre in genres)
+            {
+                <li style="color:black;font-size:20px;"><a style="color:black;text-decoration:none;" href="#@genre" onclick="showGenre('@genre')">@genre</a></li>
+            }
+        </ul>
+    </div>
+
+    <div style="width: 70%;">
+        <h3 class="pt-4">Movies</h3>
+        @{
+            var firstGenre = true;
+        }
+        @foreach (var genre in genres)
+        {
+            <div id="@genre" data-genre style="display: @(firstGenre ? "block" : "none")">
+                <h4>Movies in @genre</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Director</th>
+                            <th>Release Year</th>
+                            <th>Price</th>
+                            <th>Picture</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var movie in Model.Where(m => m.Genre.Contains(genre)))
+                        {
+                            <tr>
+                                <td>@movie.Title</td>
+                                <td>@movie.Director</td>
+                                <td>@movie.ReleaseYear</td>
+                                <td>@movie.Price</td>
+                                <td><img src="@movie.PictureUrl" alt="Bildbeskrivning" width="150" height="150"></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            firstGenre = false;
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showGenre(genre) {
+            const allGenreDivs = document.querySelectorAll('[data-genre]');
+            allGenreDivs.forEach(function (div) {
+                div.style.display = 'none';
+            });
+            console.log(allGenreDivs);
+
+            const selectedGenreDiv = document.getElementById(genre);
+            if (selectedGenreDiv) {
+                selectedGenreDiv.style.display = 'block';
+            }
+        }
+    </script>
+}

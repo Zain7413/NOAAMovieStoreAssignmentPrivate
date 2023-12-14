@@ -1,0 +1,126 @@
+﻿@model NOAAMovieStoreAssignment.ViewModels.HomeLists
+
+
+@{
+    ViewData["Title"] = "Index";
+    // ViewData["DisableNavVideo"] = true;
+
+    var genres = Model.AllMovies.SelectMany(m => m.Genre.Split(",")).Select(x => x.Trim()).Distinct().OrderBy(x => x).ToList();
+
+}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
+
+<div class="farg d-flex flex-column justify-content-center align-items-center">
+    <div>
+        <p>NOAA MOVIES</p>
+        <h3 class="text-center w-100 pt-4">G E N R E</h3>
+        <div class="container d-flex gap-3 justify-content-center pb-5 flex-wrap genres">
+            @foreach (var genre in genres)
+            {
+                <a href="@Url.Action("SortByGenre", "Home")#@genre" class="badge text-bg-primary px-3 py-2 text-decoration-none fs-6">@genre</a>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="nataliesgenre d-flex gap-4">
+
+    <div class="d-flex flex-column flex-lg-row" style="max-width: 100%; display: relative">
+        <div class="side" style="width: 25%;">
+            <h3>FEATURED</h3>
+
+            <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+                <div class="carousel-inner">
+                    @{
+                        var first = true;
+                    }
+
+                    @foreach (var item in Model.AllMovies)
+                    {
+                        <a asp-action="OneMovie" asp-controller="Movies" asp-route-id="@item.Id">
+                            <div class="carousel-item @(first ? "active" : "")">
+
+                                <img class="carousel-image" src="@item.PictureUrl" alt="Bildbeskrivning">
+                                <div class="">
+                                    <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                                </div>
+                            </div>
+                        </a>
+
+                        first = false;
+                    }
+                </div>
+
+                @* <div class="container">
+                    @Model.ExpensiveOrder?.Customer?.FirstName
+                    @Model.ExpensiveOrder?.OrderPrice
+                </div> *@
+                <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+            <div class="container vip">
+                <h4> TOP CUSTOMER </h4>
+                @Model.ExpensiveOrder?.Customer?.FirstName
+                @Model.ExpensiveOrder?.OrderPrice
+                
+            </div>
+        </div>
+
+        <div class="maralsbox">
+
+
+
+            <h3>
+                NEW RELEASES
+            </h3>
+            <div class="maral row m-lg-3 g-3">
+
+                @foreach (var item in Model.LatestMovies)
+                {
+                    <partial name="_MoviePartial" model="@item" />
+                }
+
+            </div>
+            <h3>POPULAR MOVIES</h3>
+            <div class="maral row m-lg-3">
+
+                @foreach (var item in Model.MostPopularMovies)
+                {
+                    <partial name="_MoviePartial" model="@item" />
+                }
+
+            </div>
+            <h3>OLD MOVIES</h3>
+            <div class="maral row m-lg-3">
+
+
+                @foreach (var item in Model.OldestMovies)
+                {
+                    <partial name="_MoviePartial" model="@item" />
+                }
+
+            </div>
+            <h3> CHEAPEST MOVIES</h3>
+            <div class="maral row m-lg-3">
+
+
+                @foreach (var item in Model.CheapestMovies)
+                {
+                    <partial name="_MoviePartial" model="@item" />
+                }
+
+            </div>
+            
+        </div>
+    </div>
+</div>
